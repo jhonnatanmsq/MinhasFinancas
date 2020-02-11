@@ -1,9 +1,35 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Three
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-icon slot="icon-only" name="star"></ion-icon>
+        <ion-title>
+            Favoritos
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+
+    <ion-list>
+        <ion-item button *ngFor="let item of itens">
+            <ion-label (click)="variante(item.id)">
+                <h1>{{item.papel}}</h1>
+            </ion-label>
+            <ion-label class="ion-text-end">
+
+                <ion-button color="danger" (click)="deletar(item.id)">
+                    <ion-icon slot="icon-only" name="close"></ion-icon>
+                </ion-button>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+
+        </ion-item>
+    </ion-list>
+
+
+    <ion-fab vertical="bottom" horizontal="end" edge slot="fixed" (click)="presentModal()">
+        <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

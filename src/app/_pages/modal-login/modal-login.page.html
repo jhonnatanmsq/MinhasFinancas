@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Efetuar Login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form (ngSubmit)="logar(login.value, password.value); $event.preventDefault()" style="margin-top: 50%">
+        <ion-item>
+            <ion-label stacked>Login:</ion-label>
+            <ion-input type="text" required #login></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Password:</ion-label>
+            <ion-input type="password" required #password></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit">Logar</ion-button>
+    </form>
+</ion-content>

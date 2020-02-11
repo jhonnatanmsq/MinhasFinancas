@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Adicionar Papel</ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button (click)="close()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form style="margin-top: 50%" *ngIf="tipo === 'portifolio'"
+          (ngSubmit)="cadastrarportifolio(papel.value, valorCompra.value, quantidade.value, dataCompra.value); $event.preventDefault()">
+        <ion-item>
+            <ion-label stacked>Papel:</ion-label>
+            <ion-input type="text" required #papel></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Valor do Papel:</ion-label>
+            <ion-input type="number" required #valorCompra></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Quantidade:</ion-label>
+            <ion-input type="number" required #quantidade></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Data da Compra</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" placeholder="Selecione a Data" required
+                          #dataCompra></ion-datetime>
+        </ion-item>
+        <ion-button expand="block" type="submit">Cadastrar Papel</ion-button>
+    </form>
+
+    <form style="margin-top: 50%" *ngIf="tipo === 'dividendo'"
+          (ngSubmit)="cadastrarDividendo(papel.value, valorDividendo.value, quantidade.value, dataDividendo.value); $event.preventDefault()">
+        <ion-item>
+            <ion-label stacked>Papel:</ion-label>
+            <ion-input type="text" required #papel></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Valor do Dividendo:</ion-label>
+            <ion-input type="number" required #valorDividendo></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Quantidade:</ion-label>
+            <ion-input type="number" required #quantidade></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Data do Dividendo</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" placeholder="Selecione a Data" required
+                          #dataDividendo></ion-datetime>
+        </ion-item>
+        <ion-button expand="block" type="submit">Cadastrar Dividendo</ion-button>
+    </form>
+
+    <form style="margin-top: 50%" *ngIf="tipo === 'favorito'" (ngSubmit)="cadastrarFavorito(papel.value)">
+        <ion-item>
+            <ion-label stacked>Papel:</ion-label>
+            <ion-input name="title" #papel required></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit">Favoritar Papel</ion-button>
+    </form>
+</ion-content>
