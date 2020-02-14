@@ -21,6 +21,8 @@ import {B3Service} from './_service/b3.service';
 import {DividendosService} from './_service/dividendos.service';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {ModalLoginPageModule} from './_pages/modal-login/modal-login.module';
+import {Loading} from './_utils/loading';
+import {Alert} from './_utils/alert';
 
 @NgModule({
     declarations: [AppComponent],
@@ -39,6 +41,8 @@ import {ModalLoginPageModule} from './_pages/modal-login/modal-login.module';
         FavoritosService,
         DividendosService,
         B3Service,
+        Loading,
+        Alert,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

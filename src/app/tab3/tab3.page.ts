@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ModalController} from '@ionic/angular';
 import {FavoritosDTO} from '../_models/favoritos.dto';
 import {FavoritosService} from '../_service/favoritos.service';
+import {Loading} from '../_utils/loading';
 
 @Component({
     selector: 'app-tab3',
@@ -12,7 +13,10 @@ import {FavoritosService} from '../_service/favoritos.service';
 })
 export class Tab3Page {
 
-    constructor(private router: Router, public modalController: ModalController, private service: FavoritosService) {
+    constructor(private router: Router,
+                public modalController: ModalController,
+                private service: FavoritosService,
+                public loading: Loading) {
     }
 
     itens: FavoritosDTO[];
@@ -45,6 +49,7 @@ export class Tab3Page {
     }
 
     async carregarItens() {
+        this.loading.createLoading('Carregando...');
         await this.service.findAll().subscribe(res => {
             this.itens = res.map(e => {
                 this.item = e.payload.doc.data();
@@ -53,6 +58,7 @@ export class Tab3Page {
                     papel: this.item.papel
                 };
             });
+            this.loading.dismissLoading();
         });
     }
 

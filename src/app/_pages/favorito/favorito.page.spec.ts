@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { FavoritoPage } from './favorito.page';
+import {FavoritoPage} from './favorito.page';
 
 describe('FavoritoPage', () => {
   let component: FavoritoPage;

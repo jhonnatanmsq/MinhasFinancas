@@ -7,6 +7,7 @@ import {FavoritosService} from '../../_service/favoritos.service';
 import {B3Service} from '../../_service/b3.service';
 import {DividendosDTO} from '../../_models/dividendos.dto';
 import {DividendosService} from '../../_service/dividendos.service';
+import {Alert} from '../../_utils/alert';
 
 @Component({
     selector: 'app-investimentos',
@@ -26,6 +27,7 @@ export class ModalCadastroPage implements OnInit {
                 private dividendosService: DividendosService,
                 private navParams: NavParams,
                 private favoritoService: FavoritosService,
+                public alert: Alert,
                 private b3Service: B3Service) {
         this.tipo = navParams.get('tipo');
     }
@@ -42,14 +44,14 @@ export class ModalCadastroPage implements OnInit {
         this.b3Service.findPapel(papel).subscribe(res => {
             if (!res['Error Message']) {
                 this.service.create(this.investimento).then(res => {
-                    alert(`Investimento ${this.investimento.papel.toUpperCase()} cadastrado com sucesso!`);
+                    this.alert.presentAlert(`Investimento ${this.investimento.papel.toUpperCase()} cadastrado com sucesso!`, 'Sucesso!', 'OK', null);
                     this.close(this.investimento);
                 }, error => {
-                    alert(error.message);
+                    this.alert.presentAlert(error.message, 'Ocorreu um erro!', 'OK', null);
                     this.close(error.message);
                 });
             } else {
-                alert('Papel não encontrado, tente novamente mais tarde!');
+                this.alert.presentAlert('Papel não encontrado, tente novamente mais tarde!', 'Ocorreu um erro ao encotrar o Papel', 'OK', null);
                 this.close({Error: 'Papel não encontrado'});
             }
         });
@@ -64,14 +66,14 @@ export class ModalCadastroPage implements OnInit {
         this.b3Service.findPapel(papel).subscribe(res => {
             if (!res['Error Message']) {
                 this.dividendosService.create(this.dividendos).then(res => {
-                    alert(`Dividendo ${this.dividendos.papel.toUpperCase()} cadastrado com sucesso!`);
+                    this.alert.presentAlert(`Dividendo ${this.dividendos.papel.toUpperCase()} cadastrado com sucesso!`, 'Sucesso!', 'OK', null);
                     this.close(this.dividendos);
                 }, error => {
-                    alert(error.message);
+                    this.alert.presentAlert(error.message, 'Ocorreu um erro!', 'OK', null);
                     this.close(error.message);
                 });
             } else {
-                alert('Papel não encontrado, tente novamente mais tarde!');
+                this.alert.presentAlert('Papel não encontrado, tente novamente mais tarde!', 'Ocorreu um erro ao encotrar o Papel', 'OK', null);
                 this.close({Error: 'Papel não encontrado'});
             }
         });
@@ -87,14 +89,14 @@ export class ModalCadastroPage implements OnInit {
         this.b3Service.findPapel(papel).subscribe(res => {
             if (!res['Error Message']) {
                 this.favoritoService.create(this.favoritos).then(res => {
-                    alert(`Investimento ${papel.toUpperCase()} cadastrado com sucesso!`);
+                    this.alert.presentAlert(`Investimento ${papel.toUpperCase()} cadastrado com sucesso!`, 'Sucesso!', 'OK', null);
                     this.close(this.favoritos);
                 }, error => {
-                    alert(error.message);
+                    this.alert.presentAlert(error.message, 'Ocorreu um erro!', 'OK', null);
                     this.close(error.message);
                 });
             } else {
-                alert('Papel não encontrado, tente novamente mais tarde!');
+                this.alert.presentAlert('Papel não encontrado, tente novamente mais tarde!', 'Ocorreu um erro ao encotrar o Papel', 'OK', null);
                 this.close({Error: 'Papel não encontrado'});
             }
         });

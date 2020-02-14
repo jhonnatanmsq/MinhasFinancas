@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Router} from '@angular/router';
+import {Alert} from '../../_utils/alert';
 
 @Component({
     selector: 'app-modal-login',
@@ -10,7 +11,10 @@ import {Router} from '@angular/router';
 })
 export class ModalLoginPage implements OnInit {
 
-    constructor(private modalController: ModalController, private firebase: AngularFireAuth, private router: Router) {
+    constructor(private modalController: ModalController,
+                private firebase: AngularFireAuth,
+                private router: Router,
+                public alert: Alert) {
     }
 
     ngOnInit() {
@@ -18,11 +22,12 @@ export class ModalLoginPage implements OnInit {
 
     logar(email: string, senha: string) {
         this.firebase.auth.signInWithEmailAndPassword(email, senha).then(res => {
-            alert('Logado com sucesso!');
+            this.alert.presentAlert('Logado com sucesso!', null, 'OK', null);
             this.close({Sucesso: 'Logado com sucesso!'});
-            this.router.navigate(['/tabs/tab2']);
+            this.router.navigate(['/tabs/tab1']);
         }).catch(error => {
-            alert(error);
+            this.alert.presentAlert('Ocorreu um erro ao tentar efetuar o login.\n' +
+                'Tente novamente mais tarde', null, 'OK', null);
         });
     }
 

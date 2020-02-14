@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content>
-    <form style="margin-top: 50%" *ngIf="tipo === 'portifolio'"
+    <form *ngIf="tipo === 'portifolio'"
           (ngSubmit)="cadastrarportifolio(papel.value, valorCompra.value, quantidade.value, dataCompra.value); $event.preventDefault()">
         <ion-item>
             <ion-label stacked>Papel:</ion-label>
@@ -34,7 +34,7 @@
         <ion-button expand="block" type="submit">Cadastrar Papel</ion-button>
     </form>
 
-    <form style="margin-top: 50%" *ngIf="tipo === 'dividendo'"
+    <form *ngIf="tipo === 'dividendo'"
           (ngSubmit)="cadastrarDividendo(papel.value, valorDividendo.value, quantidade.value, dataDividendo.value); $event.preventDefault()">
         <ion-item>
             <ion-label stacked>Papel:</ion-label>
@@ -56,7 +56,7 @@
         <ion-button expand="block" type="submit">Cadastrar Dividendo</ion-button>
     </form>
 
-    <form style="margin-top: 50%" *ngIf="tipo === 'favorito'" (ngSubmit)="cadastrarFavorito(papel.value)">
+    <form *ngIf="tipo === 'favorito'" (ngSubmit)="cadastrarFavorito(papel.value)">
         <ion-item>
             <ion-label stacked>Papel:</ion-label>
             <ion-input name="title" #papel required></ion-input>

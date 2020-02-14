@@ -7,7 +7,15 @@
 </ion-header>
 
 <ion-content>
-    <ion-list-header color="light">Cotação Bovespa</ion-list-header>
+    <ion-list-header color="light">
+        <ion-col size="10">
+            <i>Cotação Bovespa</i>
+        </ion-col>
+
+        <ion-col size="2" class="ion-align-items-center">
+            <ion-icon class="ion-float-right" (click)="visible = !visible" [name]="visible ? 'ios-eye' :'ios-eye-off'" size="large"></ion-icon>
+        </ion-col>
+    </ion-list-header>
     <ion-card class="welcome-card">
         <ion-card-header>
             <ion-card-subtitle>Variação nos últimos 10 dias</ion-card-subtitle>
@@ -57,7 +65,7 @@
             </ion-col>
         </ion-row>
 
-        <ion-row>
+        <ion-row *ngIf="visible">
             <ion-col size="6">
                 <ion-card button>
                     <ion-card-header>
@@ -76,7 +84,7 @@
             </ion-col>
         </ion-row>
 
-        <ion-row>
+        <ion-row *ngIf="visible">
             <ion-col size="6">
                 <ion-card button>
                     <ion-card-header>
