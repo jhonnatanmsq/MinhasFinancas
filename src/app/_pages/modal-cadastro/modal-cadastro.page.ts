@@ -35,7 +35,7 @@ export class ModalCadastroPage implements OnInit {
     ngOnInit() {
     }
 
-    cadastrarportifolio(papel: string, valorCompra: number, quantidade: number, dataIso: Date) {
+    cadastrarportifolio(papel: string, valorCompra: string, quantidade: string, dataIso: string) {
 
         const dataCompra: Date = new Date(dataIso);
 
@@ -57,7 +57,7 @@ export class ModalCadastroPage implements OnInit {
         });
     }
 
-    cadastrarDividendo(papel: string, valorDividendo: number, quantidade: number, dataIso: Date) {
+    cadastrarDividendo(papel: string, valorDividendo: string, quantidade: string, dataIso: string) {
 
         const dataDividendo: Date = new Date(dataIso);
 

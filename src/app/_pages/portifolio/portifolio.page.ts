@@ -26,7 +26,7 @@ export class PortifolioPage implements OnInit {
     allDays: any[];
     visible = true;
 
-    dados: object;
+    dados: any;
 
     investimento: PortifolioDTO;
     favorito: FavoritosDTO;

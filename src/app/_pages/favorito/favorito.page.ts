@@ -23,8 +23,9 @@ export class FavoritoPage implements OnInit {
     dias: any[] = [];
     allValues: any[];
     allDays: any[];
+    investimento: any;
 
-    dados: object;
+    dados: any;
 
     favorito: FavoritosDTO;
 
