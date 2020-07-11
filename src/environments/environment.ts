@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
+    production: false,
     alphavantageUrl: 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY',
     alphavantageKEY : 'SUA_CHAVE_AQUI',
     firebase: {

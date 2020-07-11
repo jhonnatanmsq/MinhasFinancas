@@ -3,14 +3,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
-import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {InvestimentosService} from './_service/investimentos.service';
 import {HttpClientModule} from '@angular/common/http';
-
 
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
@@ -23,6 +21,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {ModalLoginPageModule} from './_pages/modal-login/modal-login.module';
 import {Loading} from './_utils/loading';
 import {Alert} from './_utils/alert';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 
 @NgModule({
     declarations: [AppComponent],

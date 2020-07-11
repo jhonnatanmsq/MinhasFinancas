@@ -1,16 +1,16 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-icon slot="icon-only" name="star"></ion-icon>
+    <ion-toolbar color="dark">
+        <ion-icon color="white" slot="icon-only" name="star"></ion-icon>
         <ion-title>
             Dividendos
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="dark">
 
     <ion-list>
-        <ion-item button *ngFor="let dividendo of dividendos" (click)="presentDeletar(dividendo.id, dividendo.papel)">
+        <ion-item color="dark" button *ngFor="let dividendo of dividendos" (click)="presentDeletar(dividendo.id, dividendo.papel)">
             <ion-label>
                 <h1>{{dividendo.papel}}</h1>
                 <h2>{{dividendo.valorDividendo | currency:'BRL':true:'1.2-2'}}</h2>
@@ -20,7 +20,7 @@
                 <h2>Quantidade: {{dividendo.quantidade}}</h2>
             </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item color="dark_hard">
             <ion-label class="ion-text-center">
                 <h2 *ngIf="dividendosTotal">Total de dividendos: {{dividendosTotal | currency:'BRL':true:'1.2-2'}}</h2>
             </ion-label>
@@ -29,8 +29,8 @@
 
 
     <ion-fab vertical="bottom" horizontal="end" edge slot="fixed" (click)="presentModal()">
-        <ion-fab-button>
-            <ion-icon name="add"></ion-icon>
+        <ion-fab-button color="light">
+            <ion-icon name="add" color="dark"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>

@@ -24,3 +24,81 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+$dark_hard: #17191d;
+$dark_medium: #44475a;
+
+$white_ice: #f8f8f2;
+
+.modal{
+  .modal-wrapper {
+    display: flex;
+    min-height: 43vmax;
+    height: auto;
+  }
+}
+
+.modal-favorito{
+  .modal-wrapper {
+    display: flex;
+    min-height: 23vmax;
+    height: auto;
+  }
+}
+
+ion-content{
+  background-color: $dark_medium;
+}
+
+.toolbar-background{
+  background-color: $dark_hard !important;
+}
+
+.sc-ion-card-md-h {
+  margin-left: unset;
+  margin-right: unset;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+}
+
+.card-header {
+  padding: 5px !important;
+}
+
+h1{
+  color: $white_ice;
+  margin: 0;
+}
+
+h4{
+  color: $white_ice;
+  margin: 0;
+}
+
+body{
+}
+
+.list-md{
+  background-color: $dark_hard;
+}
+
+ion-col{
+  background-color: $dark_hard;
+}
+
+.item {
+  .sc-ion-label-md-h {
+    h2{
+      color: $white_ice;
+    }
+  }
+}
+
+.modal-cadastro .modal-wrapper {
+  --height: 41% !important;
+  height: 41% !important;
+}

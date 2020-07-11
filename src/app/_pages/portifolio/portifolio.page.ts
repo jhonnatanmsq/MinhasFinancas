@@ -140,16 +140,25 @@ export class PortifolioPage implements OnInit {
                 datasets: [{
                     label: 'Cotação em R$',
                     data: this.valores.reverse(),
-                    backgroundColor: 'rgba(0,0,0,0)', // array should have same number of elements as number of dataset
-                    borderColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
-                    borderWidth: 1
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    borderColor: 'rgb(38, 194, 129)',
+                    borderWidth: 2
                 }]
             },
             options: {
+                legend: {
+                    fontColor: 'white'
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
+                            fontColor: 'white',
                             beginAtZero: false
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: 'white'
                         }
                     }]
                 }

@@ -1,25 +1,40 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-icon color="black" slot="icon-only" name="wallet"></ion-icon>
+    <ion-toolbar color="dark">
+        <ion-icon color="white" slot="icon-only" name="wallet"></ion-icon>
         <ion-title>
             Portfólio
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="dark">
     <ion-list>
-        <ion-item button *ngFor="let investimento of investimentos" (click)="variante(investimento.id)">
-            <ion-label>
-                <h1>{{investimento.papel}}</h1>
-                <h2>{{investimento.valorCompra | currency:'BRL':true:'1.2-2'}}</h2>
-            </ion-label>
-            <ion-label class="ion-text-end">
-                <h2>{{investimento.dataCompra}}</h2>
-                <h2>Quantidade: {{investimento.quantidade}}</h2>
-            </ion-label>
-        </ion-item>
-        <ion-item>
+
+        <ion-row>
+            <ion-col size="6" button *ngFor="let investimento of investimentos" (click)="variante(investimento.id)">
+                <ion-card button color="dark">
+                    <ion-card-header class="card-header">
+                        <h1>{{investimento.papel}}</h1>
+                        <h4>{{investimento.valorCompra | currency:'BRL':true:'1.2-2'}}</h4>
+                        <ion-label class="ion-text-end">
+                            <h4>{{investimento.dataCompra}}</h4>
+                        </ion-label>
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+        <!--<ion-item  button *ngFor="let investimento of investimentos" (click)="variante(investimento.id)">-->
+            <!--<ion-label>-->
+                <!--<h1>{{investimento.papel}}</h1>-->
+                <!--<h2>{{investimento.valorCompra | currency:'BRL':true:'1.2-2'}}</h2>-->
+            <!--</ion-label>-->
+            <!--<ion-label class="ion-text-end">-->
+                <!--<h2>{{investimento.dataCompra}}</h2>-->
+                <!--<h2>Quantidade: {{investimento.quantidade}}</h2>-->
+            <!--</ion-label>-->
+        <!--</ion-item>-->
+        <ion-item color="$dark_hard">
             <ion-label class="ion-text-center">
                 <h2 *ngIf="investimentoTotal">Total investido: {{investimentoTotal | currency:'BRL':true:'1.2-2'}}</h2>
             </ion-label>
@@ -27,8 +42,8 @@
     </ion-list>
 
     <ion-fab vertical="bottom" horizontal="end" edge slot="fixed" (click)="presentModal()">
-        <ion-fab-button>
-            <ion-icon name="add"></ion-icon>
+        <ion-fab-button color="light">
+            <ion-icon name="add" color="dark"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>

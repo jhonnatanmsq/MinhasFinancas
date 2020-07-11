@@ -1,1 +1,37 @@
 
+ion-tab-button{
+  background-color: #17191d;
+}
+
+ion-tab-bar{
+  background-color: #222428;
+  border-top: 1px solid black;
+}
+
+ion-tab-button:focus {
+  color: white !important;
+  --color-selected: white;
+  --ion-color-base: white !important;
+  ion-icon, ion-label {
+    color: white !important;
+    --color-selected: white;
+    --ion-color-base: white !important;
+  }
+}
+
+ion-tab-button:active {
+  color: white !important;
+  --color-selected: white;
+  --ion-color-base: white !important;
+  ion-icon, ion-label {
+    color: white !important;
+    --color-selected: white;
+    --ion-color-base: white !important;
+  }
+}
+
+.tab-selected{
+  color: white !important;
+  --color-selected: white;
+  --ion-color-base: white !important;
+}

@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 
 import {ModalController, Platform} from '@ionic/angular';
-import {SplashScreen} from '@ionic-native/splash-screen/';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {ModalLoginPage} from './_pages/modal-login/modal-login.page';
 import {Router} from '@angular/router';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 
 @Component({
     selector: 'app-root',

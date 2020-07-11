@@ -33,7 +33,7 @@ export class Tab3Page {
             componentProps: {
                 tipo: 'favorito'
             },
-            cssClass: 'my-custom-modal-css'
+            cssClass: 'modal-favorito'
         });
         await modal.present();
         const {data} = await modal.onWillDismiss();

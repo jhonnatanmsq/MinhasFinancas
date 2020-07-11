@@ -74,6 +74,7 @@ export class Tab1Page {
     async presentModal() {
         const modal = await this.modalController.create({
             component: ModalCadastroPage,
+            cssClass: 'modal',
             componentProps: {
                 tipo: 'portifolio'
             }

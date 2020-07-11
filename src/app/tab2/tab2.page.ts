@@ -94,7 +94,7 @@ export class Tab2Page {
             componentProps: {
                 tipo: 'dividendo'
             },
-            cssClass: 'my-custom-modal-css'
+            cssClass: 'modal'
         });
         await modal.present();
         const {data} = await modal.onWillDismiss();
