@@ -8,7 +8,7 @@ export class B3Service {
     constructor(private http: HttpClient) {
     }
 
-    findPapel(papel: string): Observable<any[]> {
-        return this.http.get<any[]>(`${environment.alphavantageUrl}&symbol=${papel}.SAO&apikey=${environment.alphavantageKEY}`);
+    findPapel(papel: string): Observable<any> {
+        return this.http.get<any>(`${environment.B3ApiUrl}?papel=${papel}&apiKey=${environment.B3ApiKey}`);
     }
 }

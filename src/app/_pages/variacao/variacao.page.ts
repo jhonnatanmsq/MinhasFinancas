@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {PortifolioDTO} from '../../_models/portifolio.dto';
+import {AtivoDto} from '../../_models/ativo.dto';
 import {FavoritosDTO} from '../../_models/favoritos.dto';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InvestimentosService} from '../../_service/investimentos.service';
@@ -11,10 +11,10 @@ import {Alert} from '../../_utils/alert';
 
 @Component({
     selector: 'app-portifolio',
-    templateUrl: './portifolio.page.html',
-    styleUrls: ['./portifolio.page.scss'],
+    templateUrl: './variacao.page.html',
+    styleUrls: ['./variacao.page.scss'],
 })
-export class PortifolioPage implements OnInit {
+export class VariacaoPage implements OnInit {
 
     @ViewChild('barChart', null) barChart;
 
@@ -28,7 +28,7 @@ export class PortifolioPage implements OnInit {
 
     dados: any;
 
-    investimento: PortifolioDTO;
+    investimento: AtivoDto;
     favorito: FavoritosDTO;
 
     ngOnInit() {
@@ -64,50 +64,42 @@ export class PortifolioPage implements OnInit {
 
         this.loading.createLoading('Carregando...');
 
-        await this.service.findById(id).subscribe(res => {
-            this.investimento = res.data();
-            this.investimento.id = res.id;
+        await this.service.findById(id).subscribe(papelRes => {
+            this.investimento = papelRes.data();
+            this.investimento.id = papelRes.id;
             this.b3Service.findPapel(this.investimento.papel).subscribe(res => {
-                if (res['Error Message']) {
-                    this.erroB3();
-                } else {
-                    this.allValues = Object.values(res['Time Series (Daily)']);
-                    this.allDays = Object.keys(res['Time Series (Daily)']);
+                this.allValues = res.chart.result[0].indicators.adjclose[0].adjclose;
+                this.allDays = res.chart.result[0].timestamp;
 
-                    this.allValues.forEach(value => {
-                        if (this.valores.length <= 9) {
-                            this.valores.push(value['4. close']);
-                            media += +value['4. close'];
-                            if (+value['4. close'] > maior) {
-                                maior = +value['4. close'];
-                            }
-                            if (+value['4. close'] < menor || menor === 0) {
-                                menor = +value['4. close'];
-                            }
-                        }
-                    });
+                this.allValues.forEach(value => {
+                    this.valores.push(value);
+                    media += +value;
+                    if (+value > maior) {
+                        maior = +value;
+                    }
+                    if (+value < menor || menor === 0) {
+                        menor = +value;
+                    }
+                });
 
-                    this.allDays.forEach(value => {
-                        if (this.dias.length <= 9) {
-                            this.dias.push(value);
-                        }
-                    });
+                this.allDays.forEach(value => {
+                    this.dias.push(new Date(value * 1000).toLocaleDateString());
+                });
 
-                    this.dados = {
-                        ultima: this.valores[0],
-                        variacao: +this.valores[0] - +this.investimento.valorCompra,
-                        media: (media / this.valores.length),
-                        maior,
-                        menor,
-                        percentagem: ((+this.valores[0] - +this.investimento.valorCompra) / +this.investimento.valorCompra) * 100,
-                        gastoTotal: +this.investimento.valorCompra * +this.investimento.quantidade,
-                        valorTotal: +this.investimento.quantidade * this.valores[0],
-                        liquido: (+this.investimento.quantidade * this.valores[0]) - (+this.investimento.valorCompra * +this.investimento.quantidade),
-                        inclinacao: (this.valores[0] - maior) === 0 ? (((this.valores[0] - menor) / maior) * 100) : (((this.valores[0] - maior) / maior) * 100)
-                    };
+                this.dados = {
+                    ultima: this.valores[this.valores.length - 1],
+                    variacao: +this.valores[this.valores.length - 1] - +this.investimento.valorCompra,
+                    media: (media / this.valores.length),
+                    maior,
+                    menor,
+                    percentagem: ((+this.valores[this.valores.length - 1] - +this.investimento.valorCompra) / +this.investimento.valorCompra) * 100,
+                    gastoTotal: +this.investimento.valorCompra * +this.investimento.quantidade,
+                    valorTotal: +this.investimento.quantidade * this.valores[this.valores.length - 1],
+                    liquido: (+this.investimento.quantidade * this.valores[this.valores.length - 1]) - (+this.investimento.valorCompra * +this.investimento.quantidade),
+                    inclinacao: (this.valores[this.valores.length - 1] - maior) === 0 ? (((this.valores[this.valores.length - 1] - menor) / maior) * 100) : (((this.valores[this.valores.length - 1] - maior) / maior) * 100)
+                };
 
-                    this.createBarChart();
-                }
+                this.createBarChart();
             }, error => {
                 this.erroB3();
             });
@@ -128,6 +120,8 @@ export class PortifolioPage implements OnInit {
         if (id === idParam) {
             this.service.deletar(id).then(res => {
                 this.router.navigate(['tabs/tab1']);
+            }, error => {
+                this.erroB3();
             });
         }
     }
@@ -136,18 +130,20 @@ export class PortifolioPage implements OnInit {
         this.bars = new Chart(this.barChart.nativeElement, {
             type: 'line',
             data: {
-                labels: this.dias.reverse(),
+                labels: this.dias,
                 datasets: [{
                     label: 'Cotação em R$',
-                    data: this.valores.reverse(),
+                    data: this.valores,
                     backgroundColor: 'rgba(0,0,0,0)',
                     borderColor: 'rgb(38, 194, 129)',
-                    borderWidth: 2
+                    borderWidth: 3
                 }]
             },
             options: {
                 legend: {
-                    fontColor: 'white'
+                    labels: {
+                        fontColor: 'white'
+                    }
                 },
                 scales: {
                     yAxes: [{

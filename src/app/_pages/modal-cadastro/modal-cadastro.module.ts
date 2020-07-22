@@ -21,7 +21,11 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [ModalCadastroPage]
+    exports: [
+        ModalCadastroPage
+    ],
+    declarations: [ModalCadastroPage],
+    entryComponents: [ModalCadastroPage]
 })
 export class ModalCadastroPageModule {
 }

@@ -3,6 +3,9 @@
         <ion-title>
             Variação
         </ion-title>
+        <ion-buttons slot="end" style="margin: 0 15px">
+            <ion-icon color="light" class="ion-float-right" (click)="visible = !visible" [name]="visible ? 'ios-eye' :'ios-eye-off'" size="large"></ion-icon>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -13,13 +16,12 @@
         </ion-col>
 
         <ion-col size="2" class="ion-align-items-center">
-            <ion-icon color="light" class="ion-float-right" (click)="visible = !visible" [name]="visible ? 'ios-eye' :'ios-eye-off'" size="large"></ion-icon>
         </ion-col>
     </ion-list-header>
     <ion-card class="welcome-card">
         <ion-card-header>
             <ion-card-subtitle>Variação nos últimos 10 dias</ion-card-subtitle>
-            <ion-card-title *ngIf="investimento" color="light">{{investimento.papel}}</ion-card-title>
+            <ion-card-title *ngIf="investimento" color="light">{{investimento.papel}} - {{investimento.quantidade}}<small>und.</small></ion-card-title>
             <ion-card-title *ngIf="dados && !investimento" color="light">{{dados.papel}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
@@ -134,7 +136,7 @@
                 <ion-card button color="dark">
                     <ion-card-header>
                         <ion-card-subtitle>Data <br> Compra </ion-card-subtitle>
-                        <ion-card-title>{{investimento.dataCompra}}</ion-card-title>
+                        <ion-card-title>{{investimento.dataCompra | date:'dd/MM/yyyy'}}</ion-card-title>
                     </ion-card-header>
                 </ion-card>
             </ion-col>

@@ -15,6 +15,6 @@ export class Loading {
     }
 
     async dismissLoading() {
-        await this.loadingController.dismiss();
+        await this.loadingController.dismiss(null, 'cancel');
     }
 }

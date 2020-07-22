@@ -1,10 +1,14 @@
 <ion-header>
     <ion-toolbar color="dark">
-        <ion-title>Adicionar Papel</ion-title>
+        <ion-title *ngIf="tipo === 'portifolio'">Adicionar Papel</ion-title>
+        <ion-title *ngIf="tipo === 'favorito'">Adicionar Favorito</ion-title>
+        <ion-title *ngIf="tipo === 'provento'">Adicionar Provento</ion-title>
+        <ion-title *ngIf="tipo === 'consolidarC'">Consolidação Carteira</ion-title>
+        <ion-title *ngIf="tipo === 'consolidarP'">Consolidação Proventos</ion-title>
 
-        <ion-buttons slot="end">
-            <ion-button (click)="close(null)">
-                <ion-icon color="white" slot="icon-only" name="close"></ion-icon>
+        <ion-buttons  color="light" slot="end">
+            <ion-button color="light"  (click)="close(null)">
+                <ion-icon color="light" slot="icon-only" name="close"></ion-icon>
             </ion-button>
         </ion-buttons>
 
@@ -16,51 +20,182 @@
           (ngSubmit)="cadastrarportifolio(papel.value, valorCompra.value, quantidade.value, dataCompra.value); $event.preventDefault()">
         <ion-item color="dark">
             <ion-label stacked>Papel:</ion-label>
-            <ion-input type="text" required #papel></ion-input>
+            <ion-input type="text" required #papel class="ion-text-end"></ion-input>
         </ion-item>
         <ion-item color="dark">
             <ion-label stacked>Valor do Papel:</ion-label>
-            <ion-input type="number" required #valorCompra></ion-input>
+            <ion-input type="number" required #valorCompra class="ion-text-end"></ion-input>
         </ion-item>
         <ion-item color="dark">
             <ion-label stacked>Quantidade:</ion-label>
-            <ion-input type="number" required #quantidade></ion-input>
+            <ion-input type="number" required #quantidade class="ion-text-end"></ion-input>
         </ion-item>
         <ion-item color="dark">
             <ion-label>Data da Compra</ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" placeholder="Selecione a Data" required
+            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="YYYY-MM-DD" placeholder="Selecione a Data" required
                           #dataCompra></ion-datetime>
         </ion-item>
         <ion-button color="light" expand="block" type="submit">Cadastrar Papel</ion-button>
     </form>
 
-    <form *ngIf="tipo === 'dividendo'"
-          (ngSubmit)="cadastrarDividendo(papel.value, valorDividendo.value, quantidade.value, dataDividendo.value); $event.preventDefault()">
+    <form *ngIf="tipo === 'provento'"
+          (ngSubmit)="cadastrarProvento(papel.value, valorDividendo.value, tipo.value, dataDividendo.value); $event.preventDefault()">
         <ion-item color="dark">
             <ion-label stacked>Papel:</ion-label>
-            <ion-input type="text" required #papel></ion-input>
+            <ion-input type="text" required #papel class="ion-text-end"></ion-input>
         </ion-item>
         <ion-item color="dark">
             <ion-label stacked>Valor do Dividendo:</ion-label>
-            <ion-input type="number" required #valorDividendo></ion-input>
+            <ion-input type="number" required #valorDividendo class="ion-text-end"></ion-input>
         </ion-item>
         <ion-item color="dark">
-            <ion-label stacked>Quantidade:</ion-label>
-            <ion-input type="number" required #quantidade></ion-input>
+            <ion-label stacked>Tipo de provento:</ion-label>
+            <ion-select placeholder="Selecione o tipo" required #tipo>
+                <ion-select-option value="D">Dividendo</ion-select-option>
+                <ion-select-option value="J">Juros</ion-select-option>
+                <ion-select-option value="R">Rendimento</ion-select-option>
+            </ion-select>
         </ion-item>
         <ion-item color="dark">
             <ion-label>Data do Dividendo</ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" placeholder="Selecione a Data" required
+            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="YYYY-MM-DD" placeholder="Selecione a Data" required
                           #dataDividendo></ion-datetime>
         </ion-item>
-        <ion-button color="light" expand="block" type="submit">Cadastrar Dividendo</ion-button>
+        <ion-button color="light" expand="block" type="submit">Cadastrar Provento</ion-button>
     </form>
 
     <form *ngIf="tipo === 'favorito'" (ngSubmit)="cadastrarFavorito(papel.value)">
         <ion-item color="dark">
             <ion-label stacked>Papel:</ion-label>
-            <ion-input name="title" #papel required></ion-input>
+            <ion-input name="title" #papel required class="ion-text-end"></ion-input>
         </ion-item>
         <ion-button color="light" expand="block" type="submit">Favoritar Papel</ion-button>
     </form>
+
+    <div *ngIf="tipo === 'consolidarC'">
+        <ion-row>
+            <ion-col size="12" *ngFor="let investimento of consolidado">
+                <ion-card button color="dark">
+                    <ion-card-header class="card-header">
+                        <ion-row>
+                            <ion-col size="12" style="background-color: #222428; margin: 0; padding: 3px 0">
+                                <h1 class="ion-text-center">{{investimento.papel}} | {{investimento.quantidade}}<small>und.</small></h1>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Valor Compra</h5>
+                                <h3>{{investimento.valorCompra | currency:'BRL':true:'1.2-2'}}</h3>
+                            </ion-col>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Valor Atual</h5>
+                                <h3>{{investimento.valorAtual | currency:'BRL':true:'1.2-2'}}</h3>
+                            </ion-col>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Diferença</h5>
+                                <h3 [ngStyle]="(investimento.diferenca > 0)?{color:'green'}:{color:'red'}"><b>{{investimento.diferenca | currency:'BRL':true:'1.2-2'}}</b></h3>
+                            </ion-col>
+                        </ion-row>
+
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <br>
+        <ion-row>
+            <ion-col size="12">
+                <ion-card button color="dark">
+                    <ion-card-header class="card-header">
+                        <ion-row>
+                            <ion-col size="12" style="background-color: #222428; margin: 0; padding: 3px 0">
+                                <h1 class="ion-text-center">Total Consolidado</h1>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Total Compra</h5>
+                                <h3><b>{{total.totalCompra | currency:'BRL':true:'1.2-2'}}</b></h3>
+                            </ion-col>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Total Atual</h5>
+                                <h3 [ngStyle]="(total.totalAtual > total.totalCompra)?{color:'green'}:{color:'red'}"><b>{{total.totalAtual | currency:'BRL':true:'1.2-2'}}</b></h3>
+                            </ion-col>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Diferença</h5>
+                                <h3 [ngStyle]="(total.totalAtual - total.totalCompra > 0)?{color:'green'}:{color:'red'}"><b>{{total.totalAtual - total.totalCompra | currency:'BRL':true:'1.2-2'}}</b></h3>
+                            </ion-col>
+                        </ion-row>
+
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </div>
+
+    <div *ngIf="tipo === 'consolidarP'">
+                <ion-row>
+            <ion-col size="12" *ngFor="let provento of consolidado">
+                <ion-card button color="dark">
+                    <ion-card-header class="card-header">
+                        <ion-row>
+                            <ion-col size="12" style="background-color: #222428; margin: 0; padding: 3px 0">
+                                <h1 class="ion-text-center">{{provento.papel}}</h1>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="4" class="ion-text-center" *ngIf="provento.juros > 0 || provento.rendimentos == 0">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Juros</h5>
+                                <h3>{{provento.juros | currency:'BRL':true:'1.2-2'}}</h3>
+                            </ion-col>
+                            <ion-col size="4" class="ion-text-center" *ngIf="provento.dividendos > 0 || provento.rendimentos == 0">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Dividendos</h5>
+                                <h3>{{provento.dividendos | currency:'BRL':true:'1.2-2'}}</h3>
+                            </ion-col>
+                            <ion-col size="8" class="ion-text-center" *ngIf="provento.rendimentos > 0">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Rendimentos</h5>
+                                <h3>{{provento.rendimentos | currency:'BRL':true:'1.2-2'}}</h3>
+                            </ion-col>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Total</h5>
+                                <h3>{{provento.total | currency:'BRL':true:'1.2-2'}}</h3>
+                            </ion-col>
+                        </ion-row>
+
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <br>
+        <ion-row>
+            <ion-col size="12">
+                <ion-card button color="dark">
+                    <ion-card-header class="card-header">
+                        <ion-row>
+                            <ion-col size="12" style="background-color: #222428; margin: 0; padding: 3px 0">
+                                <h1 class="ion-text-center">Total Consolidado</h1>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Dividendos</h5>
+                                <h3>{{total.totalDividendos | currency:'BRL':true:'1.2-2'}}</h3>
+                            </ion-col>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Juros</h5>
+                                <h3>{{total.totalJuros | currency:'BRL':true:'1.2-2'}}</h3>
+                            </ion-col>
+                            <ion-col size="4" class="ion-text-center">
+                                <h5 class="ion-text-center" style="margin: 0; padding: 3px 0">Rendimentos</h5>
+                                <h3>{{total.totalRendimentos | currency:'BRL':true:'1.2-2'}}</h3>
+                            </ion-col>
+                        </ion-row>
+                        <ion-col size="12" style="background-color: #222428; margin: 0; padding: 0 2px">
+                            <h4 class="ion-text-center">Total de proventos: {{total.totalDividendos + total.totalJuros + total.totalRendimentos | currency:'BRL':true:'1.2-2'}}</h4>
+                        </ion-col>
+
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </div>
 </ion-content>

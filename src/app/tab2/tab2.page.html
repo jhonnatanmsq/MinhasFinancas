@@ -1,28 +1,31 @@
 <ion-header>
     <ion-toolbar color="dark">
-        <ion-icon color="white" slot="icon-only" name="star"></ion-icon>
         <ion-title>
-            Dividendos
+            Proventos
         </ion-title>
+
+        <ion-buttons slot="end" style="margin: 0 15px">
+            <ion-icon name="more" size="large" (click)="presentPopover($event)"></ion-icon>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content color="dark">
 
     <ion-list>
-        <ion-item color="dark" button *ngFor="let dividendo of dividendos" (click)="presentDeletar(dividendo.id, dividendo.papel)">
+        <ion-item color="dark" button *ngFor="let provento of proventos" (click)="presentDeletar(provento.id, provento.papel)">
             <ion-label>
-                <h1>{{dividendo.papel}}</h1>
-                <h2>{{dividendo.valorDividendo | currency:'BRL':true:'1.2-2'}}</h2>
+                <h1>{{provento.papel}}</h1>
+                <h2>{{provento.valorDividendo | currency:'BRL':true:'1.2-2'}}</h2>
             </ion-label>
             <ion-label class="ion-text-end">
-                <h2>{{dividendo.dataDividendo}}</h2>
-                <h2>Quantidade: {{dividendo.quantidade}}</h2>
+                <h2>{{provento.dataDividendo | date:'dd/MM/yyyy'}}</h2>
+                <h2>{{provento.tipo}}</h2>
             </ion-label>
         </ion-item>
         <ion-item color="dark_hard">
             <ion-label class="ion-text-center">
-                <h2 *ngIf="dividendosTotal">Total de dividendos: {{dividendosTotal | currency:'BRL':true:'1.2-2'}}</h2>
+                <h2 *ngIf="proventosTotal">Total de proventos: {{proventosTotal | currency:'BRL':true:'1.2-2'}}</h2>
             </ion-label>
         </ion-item>
     </ion-list>

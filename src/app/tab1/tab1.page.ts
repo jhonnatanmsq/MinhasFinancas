@@ -1,12 +1,14 @@
 import {Component} from '@angular/core';
-import {PortifolioDTO} from '../_models/portifolio.dto';
+import {AtivoDto} from '../_models/ativo.dto';
 import {InvestimentosService} from '../_service/investimentos.service';
 import {Router} from '@angular/router';
-import {ModalController} from '@ionic/angular';
+import {ModalController, PopoverController} from '@ionic/angular';
 import {ModalCadastroPage} from '../_pages/modal-cadastro/modal-cadastro.page';
 import {Loading} from '../_utils/loading';
 import {Alert} from '../_utils/alert';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {B3Service} from '../_service/b3.service';
+import {PopoverPrincipalPage} from '../_pages/popover-principal/popover-principal.page';
 
 @Component({
     selector: 'app-tab1',
@@ -15,9 +17,9 @@ import {AngularFireAuth} from '@angular/fire/auth';
 })
 export class Tab1Page {
 
-    investimentos: PortifolioDTO[];
+    investimentos: AtivoDto[];
 
-    investimento: PortifolioDTO;
+    investimento: AtivoDto;
 
     investimentoTotal: number;
 
@@ -25,12 +27,10 @@ export class Tab1Page {
                 private router: Router,
                 public modalController: ModalController,
                 public loading: Loading,
+                private b3: B3Service,
                 private firebase: AngularFireAuth,
-                public alert: Alert) {
-    }
-
-    ngOnInit() {
-
+                public alert: Alert,
+                public popoverController: PopoverController) {
     }
 
     ionViewDidEnter() {
@@ -68,7 +68,7 @@ export class Tab1Page {
     }
 
     variante(id: number) {
-        this.router.navigate(['/tabs/portifolio', id]);
+        this.router.navigate(['/tabs/variacao', id]);
     }
 
     async presentModal() {
@@ -86,5 +86,14 @@ export class Tab1Page {
         }
     }
 
+    async presentPopover(ev: any) {
+        const popover = await this.popoverController.create({
+            component: PopoverPrincipalPage,
+            event: ev,
+            cssClass: 'popover_class',
+            componentProps: { investimentos: this.investimentos, popover: this.popoverController },
+        });
 
+        return await popover.present();
+    }
 }

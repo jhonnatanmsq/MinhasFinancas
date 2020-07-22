@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 
-import {DividendoPage} from './dividendo.page';
+import {PopoverPrincipalPage} from './popover-principal.page';
 
-describe('DividendoPage', () => {
-  let component: DividendoPage;
-  let fixture: ComponentFixture<DividendoPage>;
+describe('PopoverPrincipalPage', () => {
+  let component: PopoverPrincipalPage;
+  let fixture: ComponentFixture<PopoverPrincipalPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DividendoPage ],
+      declarations: [ PopoverPrincipalPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DividendoPage);
+    fixture = TestBed.createComponent(PopoverPrincipalPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

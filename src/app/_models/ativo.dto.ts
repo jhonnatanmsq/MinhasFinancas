@@ -1,4 +1,4 @@
-export interface PortifolioDTO {
+export interface AtivoDto {
     papel?: any;
     valorCompra?: any;
     quantidade?: any;

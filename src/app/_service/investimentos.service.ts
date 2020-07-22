@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {PortifolioDTO} from '../_models/portifolio.dto';
+import {AtivoDto} from '../_models/ativo.dto';
 import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class InvestimentosService {
     constructor(private firestore: AngularFirestore) {
     }
 
-    create(investimento: PortifolioDTO) {
+    create(investimento: AtivoDto) {
         return this.firestore.collection('Investimentos').add(investimento);
     }
 

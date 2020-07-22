@@ -38,22 +38,12 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'portifolio/:id',
+                path: 'variacao/:id',
                 children: [
                     {
                         path: '',
                         loadChildren: () =>
-                            import('../_pages/portifolio/portifolio.module').then(m => m.PortifolioPageModule)
-                    }
-                ]
-            },
-            {
-                path: 'dividendo/:id',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: () =>
-                            import('../_pages/dividendo/dividendo.module').then(m => m.DividendoPageModule)
+                            import('../_pages/variacao/variacao.module').then(m => m.VariacaoPageModule)
                     }
                 ]
             },

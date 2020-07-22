@@ -1,13 +1,17 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="dark">
         <ion-title>
             Variação
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-list-header color="light">Cotação Bovespa</ion-list-header>
+<ion-content color="dark">
+    <ion-list-header>
+        <ion-col size="12">
+            <i>Cotação Bovespa</i>
+        </ion-col>
+    </ion-list-header>
     <ion-card class="welcome-card">
         <ion-card-header>
             <ion-card-subtitle>Variação nos últimos 10 dias</ion-card-subtitle>
@@ -22,7 +26,7 @@
     <div *ngIf="dados && favorito" class="ion-text-center">
         <ion-row>
             <ion-col size="6">
-                <ion-card button>
+                <ion-card button color="dark">
                     <ion-card-header>
                         <ion-card-subtitle>Última<br>Cotação:</ion-card-subtitle>
                         <ion-card-title>{{dados.ultima | currency:'BRL':true:'1.2-2'}}</ion-card-title>
@@ -30,7 +34,7 @@
                 </ion-card>
             </ion-col>
             <ion-col size="6">
-                <ion-card button>
+                <ion-card button color="dark">
                     <ion-card-header>
                         <ion-card-subtitle>Valor Médio<br>({{valores.length}} Dias)</ion-card-subtitle>
                         <ion-card-title>{{dados.media | currency:'BRL':true:'1.2-2'}}</ion-card-title>
@@ -40,7 +44,7 @@
         </ion-row>
         <ion-row>
             <ion-col size="6">
-                <ion-card button>
+                <ion-card button color="dark">
                     <ion-card-header>
                         <ion-card-subtitle>Maior Cotação<br>({{valores.length}} Dias)</ion-card-subtitle>
                         <ion-card-title>{{dados.maior | currency:'BRL':true:'1.2-2'}}</ion-card-title>
@@ -48,7 +52,7 @@
                 </ion-card>
             </ion-col>
             <ion-col size="6">
-                <ion-card button>
+                <ion-card button color="dark">
                     <ion-card-header>
                         <ion-card-subtitle>Menor Cotação<br>({{valores.length}} Dias)</ion-card-subtitle>
                         <ion-card-title>{{dados.menor | currency:'BRL':true:'1.2-2'}}</ion-card-title>

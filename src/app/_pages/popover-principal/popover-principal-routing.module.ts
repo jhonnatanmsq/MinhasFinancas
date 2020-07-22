@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {PortifolioPage} from './portifolio.page';
+import {PopoverPrincipalPage} from './popover-principal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: PortifolioPage
+    component: PopoverPrincipalPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PortifolioPageRoutingModule {}
+export class PopoverPrincipalPageRoutingModule {}

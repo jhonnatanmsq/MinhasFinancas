@@ -7,6 +7,7 @@ import {TabsPageRoutingModule} from './tabs-routing.module';
 
 import {TabsPage} from './tabs.page';
 import {ModalCadastroPageModule} from '../_pages/modal-cadastro/modal-cadastro.module';
+import {PopoverPrincipalPageModule} from '../_pages/popover-principal/popover-principal.module';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {ModalCadastroPageModule} from '../_pages/modal-cadastro/modal-cadastro.m
         CommonModule,
         FormsModule,
         TabsPageRoutingModule,
-        ModalCadastroPageModule
+        ModalCadastroPageModule,
+        PopoverPrincipalPageModule
     ],
     declarations: [TabsPage]
 })

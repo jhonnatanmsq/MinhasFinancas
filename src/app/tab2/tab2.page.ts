@@ -1,11 +1,13 @@
 import {Component} from '@angular/core';
 import {ModalCadastroPage} from '../_pages/modal-cadastro/modal-cadastro.page';
 import {Router} from '@angular/router';
-import {AlertController, ModalController} from '@ionic/angular';
-import {DividendosDTO} from '../_models/dividendos.dto';
+import {AlertController, ModalController, PopoverController} from '@ionic/angular';
+import {ProventosDto} from '../_models/proventos.dto';
 import {DividendosService} from '../_service/dividendos.service';
 import {Loading} from '../_utils/loading';
 import {Alert} from '../_utils/alert';
+import {TipoProvento} from '../_enums/TipoProvento';
+import {PopoverPrincipalPage} from '../_pages/popover-principal/popover-principal.page';
 
 @Component({
     selector: 'app-tab2',
@@ -14,22 +16,19 @@ import {Alert} from '../_utils/alert';
 })
 export class Tab2Page {
 
-    dividendos: DividendosDTO[];
+    proventos: ProventosDto[];
 
-    dividendo: DividendosDTO;
+    provento: ProventosDto;
 
-    dividendosTotal: number;
+    proventosTotal: number;
 
     constructor(private service: DividendosService,
                 private router: Router,
                 private alertController: AlertController,
                 public modalController: ModalController,
                 public loading: Loading,
-                public alert: Alert) {
-    }
-
-    ngOnInit() {
-
+                public alert: Alert,
+                public popoverController: PopoverController) {
     }
 
     ionViewDidEnter() {
@@ -37,21 +36,21 @@ export class Tab2Page {
     }
 
     async carregarItens() {
-        this.loading.createLoading('Carregando...');
+        await this.loading.createLoading('Carregando...');
         await this.service.findAll().subscribe(res => {
-            this.dividendos = res.map(e => {
-                this.dividendo = e.payload.doc.data();
+            this.proventos = res.map(e => {
+                this.provento = e.payload.doc.data();
                 return {
                     id: e.payload.doc.id,
-                    papel: this.dividendo.papel,
-                    quantidade: this.dividendo.quantidade,
-                    valorDividendo: this.dividendo.valorDividendo,
-                    dataDividendo: this.dividendo.dataDividendo,
+                    papel: this.provento.papel,
+                    tipo: TipoProvento[this.provento.tipo],
+                    valorDividendo: this.provento.valorDividendo,
+                    dataDividendo: this.provento.dataDividendo,
                 };
             });
-            this.dividendosTotal = 0;
-            this.dividendos.map(f => {
-                this.dividendosTotal += +f.valorDividendo;
+            this.proventosTotal = 0;
+            this.proventos.map(f => {
+                this.proventosTotal += +f.valorDividendo;
             });
             this.loading.dismissLoading();
         }, error => {
@@ -62,18 +61,14 @@ export class Tab2Page {
         });
     }
 
-    dividendoPage(id: number) {
-        //this.router.navigate(['/tabs/dividendo', id]);
-    }
-
     async presentDeletar(id, papel) {
         const alert = await this.alertController.create({
-            header: 'Remover o dividendo',
-            message: `Deseja realmente remover o dividendo <strong>${papel}</strong>?`,
+            header: 'Remover o provento',
+            message: `Deseja realmente remover o provento <strong>${papel}</strong>?`,
             buttons: [
                 {
                     text: 'Cancelar',
-                    role: 'cancelar',
+                    role: 'cancel',
                     cssClass: 'secondary'
                 }, {
                     text: 'Remover',
@@ -92,7 +87,7 @@ export class Tab2Page {
         const modal = await this.modalController.create({
             component: ModalCadastroPage,
             componentProps: {
-                tipo: 'dividendo'
+                tipo: 'provento'
             },
             cssClass: 'modal'
         });
@@ -103,5 +98,15 @@ export class Tab2Page {
         }
     }
 
+    async presentPopover(ev: any) {
+        const popover = await this.popoverController.create({
+            component: PopoverPrincipalPage,
+            event: ev,
+            cssClass: 'popover_class',
+            componentProps: { proventos: this.proventos, popover: this.popoverController },
+        });
+
+        return await popover.present();
+    }
 
 }

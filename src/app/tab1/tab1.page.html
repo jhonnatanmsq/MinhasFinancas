@@ -1,9 +1,12 @@
 <ion-header>
     <ion-toolbar color="dark">
-        <ion-icon color="white" slot="icon-only" name="wallet"></ion-icon>
         <ion-title>
-            Portfólio
+            Carteira
         </ion-title>
+
+        <ion-buttons slot="end" style="margin: 0 15px">
+            <ion-icon name="more" size="large" (click)="presentPopover($event)"></ion-icon>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -14,10 +17,17 @@
             <ion-col size="6" button *ngFor="let investimento of investimentos" (click)="variante(investimento.id)">
                 <ion-card button color="dark">
                     <ion-card-header class="card-header">
-                        <h1>{{investimento.papel}}</h1>
+                        <ion-row>
+                            <ion-col size="9" style="background-color: #222428; margin: 0; padding: 3px 0">
+                                <h1>{{investimento.papel}}</h1>
+                            </ion-col>
+                            <ion-col size="3" style="background-color: #222428; margin: 0; padding: 3px 0" class="ion-text-end">
+                                <b style="margin: 0; padding: 0">{{investimento.quantidade}}<small>und.</small></b>
+                            </ion-col>
+                        </ion-row>
                         <h4>{{investimento.valorCompra | currency:'BRL':true:'1.2-2'}}</h4>
                         <ion-label class="ion-text-end">
-                            <h4>{{investimento.dataCompra}}</h4>
+                            <h4>{{investimento.dataCompra | date:'dd/MM/yyyy'}}</h4>
                         </ion-label>
                     </ion-card-header>
                 </ion-card>

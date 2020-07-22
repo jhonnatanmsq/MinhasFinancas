@@ -1,7 +1,7 @@
-export interface DividendosDTO {
+export interface ProventosDto {
     papel?: any;
     valorDividendo?: any;
-    quantidade?: any;
+    tipo?: any;
     dataDividendo?: any;
     id?: any;
 }
